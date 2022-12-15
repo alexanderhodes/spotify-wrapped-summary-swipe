@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, View } from "react-native";
 import { Dot } from "./src/components/Dot";
 import {
@@ -9,6 +9,7 @@ import {
 
 export default function App() {
   const [selected, setSelected] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null)
 
   const screenWidth = Dimensions.get("screen").width;
 
@@ -21,10 +22,18 @@ export default function App() {
     setSelected(item)
   }
 
+  const changePage = (index: number) => {
+    if (scrollViewRef.current) {
+      setSelected(index)
+      scrollViewRef.current?.scrollTo({ x: index * summaryWidth, animated: true })
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.summaryScrollContainer, { height: SUMMARY_HEIGHT }]}>
         <ScrollView
+          ref={scrollViewRef}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: horizontalPadding }}
@@ -45,9 +54,9 @@ export default function App() {
         </ScrollView>
       </View>
       <View style={styles.dotsContainer}>
-        <Dot selected={selected === 0} onPress={() => setSelected(0)} />
-        <Dot selected={selected === 1} onPress={() => setSelected(1)} />
-        <Dot selected={selected === 2} onPress={() => setSelected(2)} />
+        <Dot selected={selected === 0} onPress={() => changePage(0)} />
+        <Dot selected={selected === 1} onPress={() => changePage(1)} />
+        <Dot selected={selected === 2} onPress={() => changePage(2)} />
       </View>
     </View>
   );
