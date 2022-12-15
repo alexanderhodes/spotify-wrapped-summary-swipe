@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, View } from "react-native";
 import { Dot } from "./src/components/Dot";
 import {
   Summary,
@@ -16,6 +16,11 @@ export default function App() {
   const summaryWidth = SUMMARY_WIDTH + 16
   const horizontalPadding = (screenWidth - summaryWidth) / 2;
 
+  const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const item = Math.round(event.nativeEvent.contentOffset.x / summaryWidth)
+    setSelected(item)
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.summaryScrollContainer, { height: SUMMARY_HEIGHT }]}>
@@ -26,6 +31,7 @@ export default function App() {
           decelerationRate="fast"
           // snap interval for width of summary items
           snapToInterval={summaryWidth}
+          onMomentumScrollEnd={onScrollEnd}
         >
           <View style={[styles.summaryContainer]}>
             <Summary backgroundColor="green" textColor="white" />
