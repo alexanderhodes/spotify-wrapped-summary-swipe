@@ -44,6 +44,7 @@ export default function App() {
           snapToInterval={summaryWidth}
           // updating the index when scroll is ended
           onMomentumScrollEnd={onScrollEnd}
+          overScrollMode="never"
         >
           <View style={[styles.summaryContainer]}>
             <Summary backgroundColor="green" textColor="white" />
