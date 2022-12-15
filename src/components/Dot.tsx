@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 type Props = {
   selected: boolean;

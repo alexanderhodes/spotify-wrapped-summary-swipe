@@ -15,6 +15,7 @@ export default function App() {
 
   // 16 is padding that is added horizontally around summary
   const summaryWidth = SUMMARY_WIDTH + 16
+  // padding that is located on the left and right for centering the summary item
   const horizontalPadding = (screenWidth - summaryWidth) / 2;
 
   const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -25,6 +26,7 @@ export default function App() {
   const changePage = (index: number) => {
     if (scrollViewRef.current) {
       setSelected(index)
+      // calculate scroll position by multiplying selected index with with of summary item
       scrollViewRef.current?.scrollTo({ x: index * summaryWidth, animated: true })
     }
   }
@@ -40,6 +42,7 @@ export default function App() {
           decelerationRate="fast"
           // snap interval for width of summary items
           snapToInterval={summaryWidth}
+          // updating the index when scroll is ended
           onMomentumScrollEnd={onScrollEnd}
         >
           <View style={[styles.summaryContainer]}>
