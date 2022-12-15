@@ -26,11 +26,11 @@ export const Summary: FunctionComponent<Props> = ({
         },
       ]}
     >
-      <View style={[styles.header]}>
+      <View style={styles.header}>
         <View style={[styles.headerPlaceholder, { backgroundColor: backgroundColor }]}></View>
       </View>
-      <View style={[styles.body]}>
-        <View style={[styles.row]}>
+      <View style={styles.body}>
+        <View style={styles.row}>
           <View style={styles.column}>
             <Text style={[styles.title, { color: textColor }]}>
               {"Top songs"}
@@ -54,7 +54,7 @@ export const Summary: FunctionComponent<Props> = ({
             </Text>
           </View>
         </View>
-        <View style={[styles.row]}>
+        <View style={styles.row}>
           <View style={styles.column}>
             <Text style={[styles.title, { color: textColor }]}>
               {"Minutes"}

@@ -46,13 +46,13 @@ export default function App() {
           onMomentumScrollEnd={onScrollEnd}
           overScrollMode="never"
         >
-          <View style={[styles.summaryContainer]}>
+          <View style={styles.summaryContainer}>
             <Summary backgroundColor="green" textColor="white" />
           </View>
-          <View style={[styles.summaryContainer]}>
+          <View style={styles.summaryContainer}>
             <Summary backgroundColor="red" textColor="white" />
           </View>
-          <View style={[styles.summaryContainer]}>
+          <View style={styles.summaryContainer}>
             <Summary backgroundColor="blue" textColor="white" />
           </View>
         </ScrollView>
