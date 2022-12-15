@@ -1,20 +1,32 @@
 import { useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import { Dot } from "./src/components/Dot";
-import { Summary, SUMMARY_HEIGHT, SUMMARY_WIDTH } from "./src/components/Summary";
+import {
+  Summary,
+  SUMMARY_HEIGHT,
+  SUMMARY_WIDTH,
+} from "./src/components/Summary";
 
 export default function App() {
   const [selected, setSelected] = useState(0);
 
-  const screenWidth = Dimensions.get("screen").width
+  const screenWidth = Dimensions.get("screen").width;
 
   // 16 is padding that is added horizontally around summary
-  const horizontalPadding = (screenWidth - (SUMMARY_WIDTH + 16)) / 2
+  const summaryWidth = SUMMARY_WIDTH + 16
+  const horizontalPadding = (screenWidth - summaryWidth) / 2;
 
   return (
     <View style={styles.container}>
       <View style={[styles.summaryScrollContainer, { height: SUMMARY_HEIGHT }]}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: horizontalPadding }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: horizontalPadding }}
+          decelerationRate="fast"
+          // snap interval for width of summary items
+          snapToInterval={summaryWidth}
+        >
           <View style={[styles.summaryContainer]}>
             <Summary backgroundColor="green" textColor="white" />
           </View>
