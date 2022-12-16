@@ -62,6 +62,11 @@ export default function App() {
         <Dot selected={selected === 1} onPress={() => changePage(1)} />
         <Dot selected={selected === 2} onPress={() => changePage(2)} />
       </View>
+      <View>
+        <TouchableOpacity style={styles.shareOpacity} onPress={() => {}}>
+          <Text style={styles.shareText}>Share</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -82,5 +87,18 @@ const styles = StyleSheet.create({
   dotsContainer: {
     flexDirection: "row",
     justifyContent: "center",
+    marginBottom: 16,
   },
+  shareOpacity: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 24,
+    backgroundColor: "green"
+  },
+  shareText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    color: "white"
+  }
 });
