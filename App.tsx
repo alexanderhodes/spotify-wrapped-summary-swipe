@@ -1,15 +1,19 @@
 import { useRef, useState } from "react";
-import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, View } from "react-native";
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Dot } from "./src/components/Dot";
 import {
   Summary,
   SUMMARY_HEIGHT,
   SUMMARY_WIDTH,
 } from "./src/components/Summary";
+import { captureRef } from "react-native-view-shot"
 
 export default function App() {
   const [selected, setSelected] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null)
+  const summary1Ref = useRef<View>(null)
+  const summary2Ref = useRef<View>(null)
+  const summary3Ref = useRef<View>(null)
 
   const screenWidth = Dimensions.get("screen").width;
 
@@ -31,6 +35,26 @@ export default function App() {
     }
   }
 
+  const onShare = async () => {
+    try {
+      let ref = summary1Ref
+      if (selected === 1) {
+        ref = summary2Ref
+      } else if (selected === 2) {
+        ref = summary3Ref
+      }
+
+      const screenshotUri = await captureRef(ref, {
+        format: "png",
+        quality: 1
+      })
+
+      console.log('screenshotUri', screenshotUri)
+    } catch (e) {
+      console.error('Error', e)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.summaryScrollContainer, { height: SUMMARY_HEIGHT }]}>
@@ -46,13 +70,13 @@ export default function App() {
           onMomentumScrollEnd={onScrollEnd}
           overScrollMode="never"
         >
-          <View style={styles.summaryContainer}>
+          <View ref={summary1Ref} style={styles.summaryContainer}>
             <Summary backgroundColor="green" textColor="white" />
           </View>
-          <View style={styles.summaryContainer}>
+          <View ref={summary2Ref} style={styles.summaryContainer}>
             <Summary backgroundColor="red" textColor="white" />
           </View>
-          <View style={styles.summaryContainer}>
+          <View ref={summary3Ref} style={styles.summaryContainer}>
             <Summary backgroundColor="blue" textColor="white" />
           </View>
         </ScrollView>
@@ -63,7 +87,7 @@ export default function App() {
         <Dot selected={selected === 2} onPress={() => changePage(2)} />
       </View>
       <View>
-        <TouchableOpacity style={styles.shareOpacity} onPress={() => {}}>
+        <TouchableOpacity style={styles.shareOpacity} onPress={onShare}>
           <Text style={styles.shareText}>Share</Text>
         </TouchableOpacity>
       </View>
